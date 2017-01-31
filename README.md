@@ -4,7 +4,7 @@ It is written in perl language(perl 5, version 18, subversion 2 (v5.18.2))
 
 ## Inputs required to run the standalone version are:
 
-BAM_file, window_size,foldchange for pause,reference fasta file,read_length_min,read_length_max,coverage%,upstream_seq and downstream_seq
+BAM_file, window_size, foldchange for pause, reference fasta file, read_length_min, read_length_max, coverage%, upstream_seq and downstream_seq
 
 Inputs should be mentioned in the order given above, separated by space.
 
