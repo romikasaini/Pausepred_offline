@@ -1,4 +1,4 @@
-#Pausepred
+#1. Pausepred
 Pausepred is designed to predict ribosomal pauses using sorted BAM alignment files. It can be run as a webtool(http://pausepred.ucc.ie) or as a standalone version(github: https://github.com/romikasaini/Pausepred_offline).
 It is written in perl language(perl 5, version 18, subversion 2 (v5.18.2))
 
@@ -24,7 +24,7 @@ perl -MCPAN -e shell
 install Bio::DB::Fasta
 
 
-#Rfeet
+#2. Rfeet
 Rfeet is designed to create ribosome profiles, to get a graphical veiw of the ribosomal density across gene/chr length. It can be run as a webtool(http://pausepred.ucc.ie/rfeet2.html) or as a standalone version(github: https://github.com/romikasaini/Pausepred_offline).
 It is written in perl language(perl 5, version 18, subversion 2 (v5.18.2))
 
