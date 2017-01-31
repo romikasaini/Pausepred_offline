@@ -10,10 +10,14 @@ perl offline_pausepred.pl example1_sorted.bam 1000 10 example_sequence.fa 20 35 
 
 ## Bioperl Module required to run standalone version
 1. Bio::DB::Fasta
+
 Can be installed by installing BioPerl-1.6.1 follow this link to install bioperl http://bioperl.org/INSTALL.html
 or 
+
 You can use the CPAN shell to install these modules. For example
+
 perl -MCPAN -e shell
+
 install Bio::DB::Fasta
 
 
