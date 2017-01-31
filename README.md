@@ -2,9 +2,11 @@
 Pausepred is designed to predict ribosomal pauses using sorted BAM alignment files. It can be run as a webtool(http://pausepred.ucc.ie) or as a standalone version(github: https://github.com/romikasaini/Pausepred_offline).
 It is written in perl language(perl 5, version 18, subversion 2 (v5.18.2))
 
-## Inputs required to run the standalone version
+## Inputs required to run the standalone version are:
 
-###BAM_file ###window_size ###foldchange for pause ###reference fasta file ###read_length_min ###read_length_max ###coverage% ###upstream_seq ###downstream_seq
+BAM_file, window_size,foldchange for pause,reference fasta file,read_length_min,read_length_max,coverage%,upstream_seq and downstream_seq
+
+Inputs should be mentioned in the order given above, separated by space.
 
 ## Example Command
 perl offline_pausepred.pl example1_sorted.bam 1000 10 example_sequence.fa 20 35 10 50 50
@@ -30,10 +32,12 @@ install Bio::DB::Fasta
 Rfeet is designed to create ribosome profiles, to get a graphical veiw of the ribosomal density across gene/chr length. It can be run as a webtool(http://pausepred.ucc.ie/rfeet2.html) or as a standalone version(github: https://github.com/romikasaini/Pausepred_offline).
 It is written in perl language(perl 5, version 18, subversion 2 (v5.18.2))
 
-## Inputs required to run the standalone version
-###first_bam_file ###Fasta sequence ###file ###gene/transscript/chr:strt-end ###second_bam_file
+## Inputs required to run the standalone version are:
+first_bam_file, Fasta sequence, file, gene/transscript/chr:strt-end, second_bam_file
 
 note: second file is optional
+
+Inputs should be provided in the order mentioned above, separated by space. Additional inputs such as legend names, plot type etc will be asked on the console once you run the script.
 
 ##Example command
 perl offline_rfeet.pl perl plot_inputfile_optional.pl example1_sorted.bam example_sequence.fa chr:3347-4347 example2_sorted.bam
