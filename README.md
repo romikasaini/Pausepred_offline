@@ -9,7 +9,7 @@ BAM_file, window_size, foldchange for pause, reference fasta file, read_length_m
 Inputs should be mentioned in the order given above, separated by space.
 
 ## Example Command
-perl offline_pausepred.pl example1_sorted.bam 1000 10 example_sequence.fa 20 35 10 50 50
+>perl offline_pausepred.pl example1_sorted.bam 1000 10 example_sequence.fa 20 35 10 50 50
 
 
 ## Modules/Packages required to run standalone version
@@ -22,11 +22,11 @@ or
 
 You can use the CPAN shell to install these modules. You can open CPAN shell by running following command.
 
-perl -MCPAN -e shell
+>perl -MCPAN -e shell
 
 and then Bio::DB::Fasta can be installed by running following command.
 
-install Bio::DB::Fasta
+>install Bio::DB::Fasta
 
 
 #2. Rfeet
@@ -41,7 +41,7 @@ note: second file is optional
 Inputs should be provided in the order mentioned above, separated by space. Additional inputs such as legend names, plot type etc will be asked on the console once you run the script.
 
 ##Example command
-perl offline_rfeet.pl perl plot_inputfile_optional.pl example1_sorted.bam example_sequence.fa chr:3347-4347 example2_sorted.bam
+>perl offline_rfeet.pl perl plot_inputfile_optional.pl example1_sorted.bam example_sequence.fa chr:3347-4347 example2_sorted.bam
 
 note: Second file is optional and multiple genes/chr locations can ploted at one time using a comma separated list. Example is given below.
 perl offline_rfeet.pl perl plot_inputfile_optional.pl example1_sorted.bam example_sequence.fa chr:3347-4347,chr:2347-3346,chr:4348-5346 example2_sorted.bam
@@ -56,8 +56,8 @@ To install this package you need to install R in your OS first, since Statistics
 
 You can use the CPAN shell to install these modules. You can open CPAN shell by running following command.
 
-perl -MCPAN -e shell
+>perl -MCPAN -e shell
 
 and then Bio::DB::Fasta can be installed by running following command.
 
-install Bio::DB::Fasta
+>install Bio::DB::Fasta
