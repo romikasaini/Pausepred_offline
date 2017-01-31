@@ -18,7 +18,7 @@ perl offline_pausepred.pl example1_sorted.bam 1000 10 example_sequence.fa 20 35 
 
 Can be installed by installing BioPerl-1.6.1 follow this link to install bioperl http://bioperl.org/INSTALL.html
                                                   
-                                                  or 
+or 
 
 You can use the CPAN shell to install these modules. You can open CPAN shell by running following command.
 
