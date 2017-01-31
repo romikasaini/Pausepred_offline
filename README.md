@@ -17,9 +17,11 @@ perl offline_pausepred.pl example1_sorted.bam 1000 10 example_sequence.fa 20 35 
 Can be installed by installing BioPerl-1.6.1 follow this link to install bioperl http://bioperl.org/INSTALL.html
 or 
 
-You can use the CPAN shell to install these modules. For example
+You can use the CPAN shell to install these modules. You can open CPAN shell by running following command.
 
 perl -MCPAN -e shell
+
+and then Bio::DB::Fasta can be installed by running following command.
 
 install Bio::DB::Fasta
 
@@ -46,8 +48,11 @@ perl offline_rfeet.pl perl plot_inputfile_optional.pl example1_sorted.bam exampl
 4. Statistics::R
 To install this package you need to install R in your OS first, since Statistics::R need to find R path to work fine. 
 
-You can use the CPAN shell to install these modules. For example
+
+You can use the CPAN shell to install these modules. You can open CPAN shell by running following command.
 
 perl -MCPAN -e shell
 
-install Statistics::R
+and then Bio::DB::Fasta can be installed by running following command.
+
+install Bio::DB::Fasta
