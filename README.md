@@ -46,7 +46,7 @@ note: Second file is optional and multiple genes/chromosome locations can ploted
 ## Modules/Packages required to run standalone version
 1. SAMtools(Follow this link to install http://www.htslib.org/download/)
 
-Following are perl modules and they can be installed by following the perl module installation given below.
+Following are perl modules and they can be installed by following the "Perl module installation" steps given below.
 
 2. List::Util
 3. Bio::DB::Fasta(which can be installed by installing BioPerl-1.6.1)
