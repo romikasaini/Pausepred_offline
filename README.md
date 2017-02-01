@@ -16,6 +16,7 @@ Inputs should be mentioned in the order given above, delimited by space.
 1. SAMtools(Follow this link to install http://www.htslib.org/download/)
 
 Following is a perl module.
+
 2. Bio::DB::Fasta
 
 Bio::DB::Fasta be installed by installing BioPerl-1.6.1 follow this link to install bioperl http://bioperl.org/INSTALL.html
@@ -45,6 +46,7 @@ perl offline_rfeet.pl perl plot_inputfile_optional.pl example1_sorted.bam exampl
 1. SAMtools(Follow this link to install http://www.htslib.org/download/)
 
 Following are perl modules and they can be installed by following the perl module installation given below.
+
 2. List::Util
 3. Bio::DB::Fasta(which can be installed by installing BioPerl-1.6.1)
 4. Statistics::R
