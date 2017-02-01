@@ -30,7 +30,7 @@ Please follow the instructions given at the bottom of this document("Perl module
 Rfeet is designed to generate ribosome profiles, to get a graphical view of the footprint density across gene/chromosome length. It can be used as a web application (http://pausepred.ucc.ie/rfeet2.html) or as a standalone tool (github: https://github.com/romikasaini/Pausepred_offline).
 This tool is written using Perl scripting language(Perl 5, version 18, subversion 2 (v5.18.2 )) and R programming language.
 
-## Inputs required to run the standalone version:
+## Inputs required to run the stand-alone version:
 first_bam_file, Fasta sequence, file, gene/transscript/chr:strt-end, second_bam_file
 
 note: second file is optional
