@@ -19,7 +19,7 @@ Following is a perl module.
 
 2. Bio::DB::Fasta
 
-Bio::DB::Fasta be installed by installing BioPerl-1.6.1 follow this link to install bioperl http://bioperl.org/INSTALL.html
+Bio::DB::Fasta can be installed by installing BioPerl-1.6.1 follow this link to install bioperl http://bioperl.org/INSTALL.html
                                                   
 or 
 Please follow the instructions given at the bottom of this document(Perl module installation).
