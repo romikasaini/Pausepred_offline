@@ -50,7 +50,8 @@ Following are perl modules and they can be installed by following the "Perl modu
 3. Bio::DB::Fasta(which can be installed by installing BioPerl-1.6.1)
 4. Statistics::R
 5. Bedtools (follow link for installation: http://bedtools.readthedocs.io/en/latest/content/installation.html)
-To install this package you need to install R in your OS first, since Statistics::R need to find R path to work. 
+
+To install Statistics::R package you need to install R in your OS first, since Statistics::R need to find R path to work. 
 
 ##Perl module installation
 
