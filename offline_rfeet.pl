@@ -20,12 +20,15 @@ print "Please enter legend to be shown for second file. Press enter if only one 
 chomp (my $legend2 =<STDIN>);
 print "Please write 'coverage' if you want second file to be a coverage plot. Press enter if only one file is used or if you dont want a coverage plot\n";
 chomp (my $cov_plot=<STDIN>);
+print "Please enter offset value.\n";
+chomp (my $offset=<STDIN>);
+
 my ($plot_strt,$plot_end,$frame_loop);
 my $gene_name;
 my @gene_list_array=split/\,/,$gene_list;
 
 print "Command used :perl offline_rfeet $bam_file\t$fasta_file\t$gene_list\t$bam_file_rnaseq\t$plottype\t$legend1\t$legend2\t$cov_plot\n";
-
+print "Output files will be created shortly...\n";
 foreach my $gene_name(@gene_list_array)
 {
 
@@ -66,7 +69,7 @@ system ("samtools index $bam_file_rnaseq");
 open RNASEQPLOT, "samtools view  -b $bam_file_rnaseq '$gene_name:$plot_strt-$plot_end' | genomeCoverageBed -d -split -ibam stdin | awk '{if(\$2>=$plot_strt && \$2<=$plot_end) print \$0}' |" or die "Cant write rnaseq file";
 
 open ABSRNA , "samtools view $bam_file_rnaseq '$gene_name:$plot_strt-$plot_end' | awk '{if(\$4>=$plot_strt && \$4<=$plot_end) print \$0}' |";
-
+if ($offset != 1){$plot_strt=$plot_strt+$offset; $plot_end=$plot_end+$offset;}
 my ($profile, $frame_plot);
 my %unique_orientation ;
 my %unique_orientationrna;
@@ -77,6 +80,7 @@ while(<PLOTCOD>)
 	chomp;
 	next if(/^(\@)/);
 	my @array=  split(/\s+/);
+	if ($offset != 1){$array[3]=$array[3]+$offset;}
 	$unique_orientation{$array[3]}=$array[1];
 	$type{$array[3]}++;
 }
@@ -91,6 +95,7 @@ while(<ABSRNA>)
         chomp;
         next if(/^(\@)/);
         my @array=  split(/\s+/);
+	if ($offset != 1){$array[3]=$array[3]+$offset;}
         $unique_orientationrna{$array[3]}=$array[1];
         $typerna{$array[3]}++;
 
@@ -119,6 +124,7 @@ while(<RNASEQPLOT>)
 	chomp;
         next if(/^(\@)/);
         my @array=  split(/\s+/);
+	if ($offset != 1){$array[3]=$array[3]+$offset;}
 	push @names_rnaseq, $array[1];
 	push @scores_rnaseq,$array[2];
 }
