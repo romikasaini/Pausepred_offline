@@ -35,13 +35,13 @@ note: second file is optional
 
 Inputs should be provided in the order mentioned above, delimited by space. Additional inputs such as legend names, plot type etc. will be requested through the console once the script is initiated.
 
-## Example command
+## Example command:
 >perl offline_rfeet.pl example1_sorted.bam example_sequence.fa chr:3347-4347 example2_sorted.bam
 
 note: Second file is optional and multiple genes/chromosome locations can ploted at a time using a comma separated input as shown in the example given below.
 >perl offline_rfeet.pl example1_sorted.bam example_sequence.fa chr:3347-4347,chr:2347-3346,chr:4348-5346 example2_sorted.bam
 
-## Modules/Packages required to run standalone version
+## Modules/Packages required to run standalone version:
 1. SAMtools(Follow this link to install http://www.htslib.org/download/)
 
 Following are perl modules and they can be installed by following the "Perl module installation" steps given below.
@@ -53,7 +53,7 @@ Following are perl modules and they can be installed by following the "Perl modu
 
 To install Statistics::R package you need to install R in your OS first, since Statistics::R need to find R path to work. 
 
-##Perl module installation
+## Perl module installation:
 
 You can use the CPAN shell to install these modules. Open CPAN shell by running following command.
 
