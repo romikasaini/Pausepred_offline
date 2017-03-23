@@ -3,12 +3,12 @@ PausePred predicts ribosomal pause sites using mapped Ribo-seq data (in sorted B
 
 ## Inputs required to run the stand-alone version:
 
-BAM_file, window_size, foldchange for pause, reference fasta file, read_length_min, read_length_max, coverage%, upstream_seq and downstream_seq
+BAM_file, window_size, foldchange for pause, reference fasta file, read_length_min, read_length_max, coverage%, upstream_seq and downstream_seq, offset value
 
 Inputs should be mentioned in the order given above, delimited by space.
 
 ## Example Command:
->perl offline_pausepred.pl example1_sorted.bam 1000 10 example_sequence.fa 20 35 10 50 50
+>perl offline_pausepred.pl example1_sorted.bam 1000 10 example_sequence.fa 20 35 10 50 50 12
 
 
 ## Modules and Packages required for implementing the stand-alone version:
