@@ -35,7 +35,7 @@ note: second file is optional
 
 Inputs should be provided in the order mentioned above, delimited by space. Additional inputs such as legend names, plot type etc. will be requested through the console once the script is initiated.
 
-##Example command
+## Example command
 >perl offline_rfeet.pl example1_sorted.bam example_sequence.fa chr:3347-4347 example2_sorted.bam
 
 note: Second file is optional and multiple genes/chromosome locations can ploted at a time using a comma separated input as shown in the example given below.
