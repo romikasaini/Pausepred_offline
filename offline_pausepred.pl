@@ -12,6 +12,7 @@ my $readlength_max=$ARGV[5];
 my $cov=$ARGV[6];
 my $US_seq= $ARGV[7];
 my $DS_seq= $ARGV[8];
+my $offset= $ARGV[9];
 
 my $db = Bio::DB::Fasta->new($fasta_file);
 
@@ -30,6 +31,7 @@ while(<F1>)
 	chomp;
 	next if(/^(\@)/);
 	my @array=  split(/\s+/);
+	if ($offset != 1){$array[3]=$array[3]+$offset;}
 ##Conditions to create new windows
 	if($array[2]=~/[a-zA-Z]/ && length($array[9]) >=$ARGV[4] && length($array[9]) <= $ARGV[5])
 	{
