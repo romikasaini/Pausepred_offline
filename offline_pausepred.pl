@@ -31,7 +31,6 @@ while(<F1>)
 	chomp;
 	next if(/^(\@)/);
 	my @array=  split(/\s+/);
-	if ($offset != 1){$array[3]=$array[3]+$offset;}
 ##Conditions to create new windows
 	if($array[2]=~/[a-zA-Z]/ && length($array[9]) >=$ARGV[4] && length($array[9]) <= $ARGV[5])
 	{
@@ -61,10 +60,12 @@ while(<F1>)
 			}
 if($array[3]>=$win_start+750 && $array[3]<=$win_end)
 	{	
-	push @overlap_values, $array[3];	
+	if ($offset >=0)        {push @overlap_values, ($array[3]+$offset);}
+        if ($offset<0) {push @overlap_values, (($array[3]+length($array[9])-1)+$offset);}
+
 	}
-	push @values, $array[3];			## after defining windows keep tracj of coordinates// ## gene name and coordinates will be kept contast by condition above
-	
+	if ($offset >=0)        {push @values, ($array[3]+$offset);}                    ## after defining windows keep tracj of coordinates// ## gene name and coordinates will be kept contast by condition above
+if ($offset<0){push @values, (($array[3]+length($array[9])-1)+$offset);}
 	}
 }
 
