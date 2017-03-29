@@ -64,12 +64,13 @@ $frame_loop=2;
 
 system ("samtools index $bam_file");
 open PLOTCOD ,"samtools view $bam_file '$gene_name:$plot_strt-$plot_end' | awk '{if(\$4>=$plot_strt && \$4<=$plot_end) print \$0}' |";
-
+if(defined $bam_file_rnaseq)
+{
 system ("samtools index $bam_file_rnaseq");
 open RNASEQPLOT, "samtools view  -b $bam_file_rnaseq '$gene_name:$plot_strt-$plot_end' | genomeCoverageBed -d -split -ibam stdin | awk '{if(\$2>=$plot_strt && \$2<=$plot_end) print \$0}' |" or die "Cant write rnaseq file";
 
 open ABSRNA , "samtools view $bam_file_rnaseq '$gene_name:$plot_strt-$plot_end' | awk '{if(\$4>=$plot_strt && \$4<=$plot_end) print \$0}' |";
-if ($offset != 1){$plot_strt=$plot_strt+$offset; $plot_end=$plot_end+$offset;}
+}
 my ($profile, $frame_plot);
 my %unique_orientation ;
 my %unique_orientationrna;
@@ -80,7 +81,8 @@ while(<PLOTCOD>)
 	chomp;
 	next if(/^(\@)/);
 	my @array=  split(/\s+/);
-	if ($offset != 1){$array[3]=$array[3]+$offset;}
+	if ($offset >=0){$array[3]=$array[3]+$offset;}
+        if ($offset<0){($array[3]=($array[3]+length($array[9])-1)+$offset);}
 	$unique_orientation{$array[3]}=$array[1];
 	$type{$array[3]}++;
 }
@@ -95,7 +97,8 @@ while(<ABSRNA>)
         chomp;
         next if(/^(\@)/);
         my @array=  split(/\s+/);
-	if ($offset != 1){$array[3]=$array[3]+$offset;}
+	 if ($offset >=0){$array[3]=$array[3]+$offset;}
+        if ($offset<0){(($array[3]=$array[3]+length($array[9])-1)+$offset);}
         $unique_orientationrna{$array[3]}=$array[1];
         $typerna{$array[3]}++;
 
@@ -124,7 +127,8 @@ while(<RNASEQPLOT>)
 	chomp;
         next if(/^(\@)/);
         my @array=  split(/\s+/);
-	if ($offset != 1){$array[3]=$array[3]+$offset;}
+	if ($offset >=0){$array[3]=$array[3]+$offset;}
+        if ($offset<0){(($array[3]=$array[3]+length($array[9])-1)+$offset);}
 	push @names_rnaseq, $array[1];
 	push @scores_rnaseq,$array[2];
 }
