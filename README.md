@@ -31,7 +31,7 @@ Rfeet is written using Perl scripting language(Perl 5, version 18, subversion 2 
 ## Inputs required to run the stand-alone version:
 first_bam_file, Fasta sequence, file, gene/transscript/chr:strt-end, second_bam_file
 
-note: second file is optional
+#Note: second file is optional
 
 Inputs should be provided in the order mentioned above, delimited by space. Additional inputs such as legend names, plot type etc. will be requested through the console once the script is initiated.
 
