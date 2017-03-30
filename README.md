@@ -1,4 +1,4 @@
-##1. Pausepred
+## 1. Pausepred
 PausePred predicts ribosomal pause sites using mapped Ribo-seq data (in sorted BAM format). It can be used as a web application (http://pausepred.ucc.ie) or as a stand-alone tool (github: https://github.com/romikasaini/Pausepred_offline). The PausePred tool is written using Perl scripting language (Perl 5, version 18, subversion 2 (v5.18.2)).
 
 ## Inputs required to run the stand-alone version:
@@ -24,14 +24,14 @@ or
 Please follow the instructions given at the bottom of this document ("Perl module installation").
 
 
-##2. Rfeet
+## 2. Rfeet
 Rfeet generates a graphical view of the ribosome footprint density across a gene/chromosome length. It can be used as a web application (http://pausepred.ucc.ie/rfeet2.html) or as a standalone tool (github: https://github.com/romikasaini/Pausepred_offline).
 Rfeet is written using Perl scripting language(Perl 5, version 18, subversion 2 (v5.18.2 )) and R programming language.
 
 ## Inputs required to run the stand-alone version:
 first_bam_file, Fasta sequence, file, gene/transscript/chr:strt-end, second_bam_file
 
-#Note: second file is optional
+# Note: second file is optional
 
 Inputs should be provided in the order mentioned above, delimited by space. Additional inputs such as legend names, plot type etc. will be requested through the console once the script is initiated.
 
