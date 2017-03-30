@@ -279,7 +279,7 @@ $R->run( qq`png("$gene_name-$plot_strt-$plot_end.png",res = 500, pointsize =4, w
 		$R->run(q`scores_fwd[which(scores_fwd==0)]=NA`);
 		$R->run( q`layout(matrix(c(1,1,2,2,3,3,4,4,5,5,6,6), nrow = 6, ncol = 2, byrow = TRUE),heights = c(14,1,1,1,1))`);
 		$R->run( q`par(mar=c(8,8,8,8),mgp=c(5,1,0))`);
-		if($cov_plot eq 'cov')
+		if($cov_plot eq 'coverage')
 		{
 		$R->run( q`plot(pos_rnaseq,scores_rnaseq,xlim=c(xmin,xmax), ylim=c(0,ymax1),type='h', xlab="coordinate positions",ylab="no.of reads mapped",col='gray',bty='l',lwd=1,cex.lab=2,cex.axis=2,cex.main=2)` );
 			if($bam_file_rnaseq=~/bam/i)
@@ -348,7 +348,7 @@ $R->run( qq`png("$gene_name-$plot_strt-$plot_end.png",res = 500, pointsize =4, w
 		$R->run(q`scores_rev[which(scores_rev==0)]=NA`);
 		$R->run( q`layout(matrix(c(1,1,2,2,3,3,4,4,5,5,6,6,7,7,8,8,9,9), nrow = 9, ncol = 2, byrow = TRUE),heights = c(14,1,1,1,1,1,1,1))`);
 		$R->run( q`par(mar=c(8,8,4,4),mgp=c(5,1,0))`);
-		if($cov_plot eq 'cov')
+		if($cov_plot eq 'coverage')
 		{
 		$R->run( q`plot(pos_rnaseq,scores_rnaseq,xlim=c(xmin,xmax), ylim=c(0,ymax),type='h', xlab="coordinate positions",ylab="no.of reads mapped",col='gray',bty='l',lwd=1,cex.lab=2,cex.axis=2,cex.main=2)` );
 			if($bam_file_rnaseq=~/bam/i)
