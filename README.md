@@ -59,8 +59,8 @@ You can use the CPAN shell to install these modules. Open CPAN shell by running 
 
 >perl -MCPAN -e shell
 
-and then Bio::DB::Fasta can be installed by running following command.
+and then modules can be installed by running following commands.
 
 >install Bio::DB::Fasta
-
-Please follow same steps to install List::Util and Statistics::R
+>install List::Util
+>install Statistics::R
