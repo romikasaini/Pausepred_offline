@@ -489,8 +489,8 @@ $R->run( qq`png("$gene_name-$plot_strt-$plot_end.png",res = 500, pointsize =4, w
 		$R->run( q`par(mar=c(8,8,4,4),mgp=c(5,1,0))`);
 		$R->run( q`plot(pos_riboseq,scores_fwdrna/ratio2,xlim=c(xmin,xmax), ylim=c(0,ymax_local),type='h', xlab="coordinate positions",ylab="no.of reads mapped",col='black',bty='l',lwd=1,cex.lab=2,cex.axis=2,cex.main=2)` );
 		$R->run( q`par(new=TRUE)` );
-		$R->run( q`plot(pos_riboseq,scores_revrna/ratio2,xlim=c(xmin,xmax), ylim=c(0,ymax_local),type='h', xlab="coordinate positions",ylab="no.of reads mapped",col='yellow',bty='l',lwd=1,cex.lab=2,cex.axis=2,cex.main=2)` );
-		$R->run( q`legend("topright", c(paste("riboseq", " (", "foward",")", sep=""),paste("riboseq", " (", "reverse",")", sep=""),paste("rnaseq", " (", "foward",")", sep=""),paste("rnaseq", " (", "reverse",")", sep="")), cex=2, col=c("red","blue","black","yellow"), lwd=c(2,2),bty="n")`);
+		$R->run( q`plot(pos_riboseq,scores_revrna/ratio2,xlim=c(xmin,xmax), ylim=c(0,ymax_local),type='h', xlab="coordinate positions",ylab="no.of reads mapped",col='chartreuse4',bty='l',lwd=1,cex.lab=2,cex.axis=2,cex.main=2)` );
+		$R->run( q`legend("topright", c(paste("riboseq", " (", "foward",")", sep=""),paste("riboseq", " (", "reverse",")", sep=""),paste("rnaseq", " (", "foward",")", sep=""),paste("rnaseq", " (", "reverse",")", sep="")), cex=2, col=c("red","blue","black","chartreuse4"), lwd=c(2,2),bty="n")`);
 		$R->run( q`par(new=TRUE)` );
 		$R->run( q`plot(pos_riboseq,scores_fwd/ratio1,xlim=c(xmin,xmax),ylim=c(0,ymax_local),type='h', xlab="coordinate positions",ylab="no.of reads mapped",col=rgb(red=1, green=0, blue=0, alpha=0.5),bty='l',lwd=1,cex.lab=2,cex.axis=2,cex.main=2)` );
 		$R->run( q`par(new=TRUE)` );
