@@ -21,7 +21,7 @@ open (FH, ">$bam_file-pausepred_output.csv") or die "$!";
 
 open F1 ,"samtools view $bam_file |";
 print FH "Command used: perl offline_pausepred.pl $bam_file $window $foldchange $fasta_file $readlength_min $readlength_max $cov $US_seq $DS_seq $offset \n";
-print FH "gene_name\tcoordinate_position\tnumber_of_reads_mapped\tPause_score\tcoverage(%)\t50_upstream_seq\t50_downstream_seq(including pause position)\n";
+print FH "gene_name,coordinate_position,number_of_reads_mapped,Pause_score,coverage(%),50_upstream_seq,50_downstream_seq(including_pause_position),Z-score\n";
 my ($win_start,$win_end,@values,$seq_id, %id_sort_chk, %type,@overlap_values);		## Window start and window end; array to store values of current window; sequence ID (CHR/GEne id)
 my @out_file;
 my %freq_track;
