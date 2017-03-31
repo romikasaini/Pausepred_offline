@@ -19,10 +19,11 @@ print "Please enter legend to be shown for first file\n";
 chomp (my $legend1 =<STDIN>);
 print "Please enter legend to be shown for second file. Press enter if only one file is used\n";
 chomp (my $legend2 =<STDIN>);
+my $cov_plot;
 if($plottype eq 'absolute')
 {
 print "Please write 'coverage' if you want second file to be a coverage plot. Press enter if only one file is used or if you dont want a coverage plot\n";
-chomp (my $cov_plot=<STDIN>);
+chomp ($cov_plot=<STDIN>);
 }
 print "Please enter offset value.\n";
 chomp (my $offset=<STDIN>);
