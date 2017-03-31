@@ -2,7 +2,7 @@
 ##Author: Romika Kumari
 use strict;
 use Bio::DB::Fasta;
-if(@ARGV<8){print "Input is <BAM_file><window_size><foldchange for pause><reference fasta file><read_length_min><read_length_max><coverage><upstream sequence><downstream sequence>\n";}
+if(@ARGV<8){print "Inputs are <BAM_file><window_size><foldchange for pause><reference fasta file><read_length_min><read_length_max><coverage><upstream sequence><downstream sequence>\n";}
 my $bam_file=$ARGV[0];
 my $window = $ARGV[1];
 my $foldchange=$ARGV[2]; 
@@ -13,10 +13,11 @@ my $cov=$ARGV[6];
 my $US_seq= $ARGV[7];
 my $DS_seq= $ARGV[8];
 my $offset= $ARGV[9];
-
+print "Please enter output file name\n";
+chomp (my $outfile=<STDIN>);
 my $db = Bio::DB::Fasta->new($fasta_file);
 
-open (FH, ">$bam_file-pausepred_output.csv") or die "$!";
+open (FH, ">$outfile") or die "$!";
 
 
 open F1 ,"samtools view $bam_file |";
@@ -172,4 +173,4 @@ if($_ ne '')
 print FH join(',',@{$uniq_zscore_values{$_}}),"\n";
 }
 }
-print "Output has been written to file $bam_file-pausepred_output.csv\n";
+print "Output has been written to file $outfile\n";
