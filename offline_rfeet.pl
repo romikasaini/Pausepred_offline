@@ -14,12 +14,16 @@ my $gene_list=$ARGV[2];
 my $bam_file_rnaseq=$ARGV[3];
 print "Please enter plot type(i.e absolute or normalized)\n";
 chomp (my $plottype=<STDIN>);
+if(!defined $bam_file_rnaseq && $plottype eq 'normalized'){die "Please enter second file for normalized plot.\n";}
 print "Please enter legend to be shown for first file\n";
 chomp (my $legend1 =<STDIN>);
 print "Please enter legend to be shown for second file. Press enter if only one file is used\n";
 chomp (my $legend2 =<STDIN>);
+if($plottype eq 'absolute')
+{
 print "Please write 'coverage' if you want second file to be a coverage plot. Press enter if only one file is used or if you dont want a coverage plot\n";
 chomp (my $cov_plot=<STDIN>);
+}
 print "Please enter offset value.\n";
 chomp (my $offset=<STDIN>);
 
@@ -425,6 +429,8 @@ $R->run( qq`png("$gene_name-$plot_strt-$plot_end.png",res = 500, pointsize =4, w
 }
 ######################################
 ###################################### Normalized plot
+if(defined $bam_file_rnaseq)
+{
 if($plottype eq 'normalized')
 {
 if($frame_loop==2)
@@ -536,7 +542,7 @@ $R->run( qq`png("$gene_name-$plot_strt-$plot_end.png",res = 500, pointsize =4, w
 
 }
 }
-
+}
 
 sub reverse {
         my $seq = shift;
