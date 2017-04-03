@@ -86,8 +86,10 @@ while(<PLOTCOD>)
 	chomp;
 	next if(/^(\@)/);
 	my @array=  split(/\s+/);
-	if ($offset >=0){$array[3]=$array[3]+$offset;}
-        if ($offset<0){($array[3]=($array[3]+length($array[9])-1)+$offset);}
+        if ($offset >=0 && $array[1] eq 0){$array[3]=$array[3]+$offset;}	##5' offset for forward strand
+        if ($offset >=0 && $array[1] eq 16){$array[3]=(($array[3]+length($array[9])-1)-$offset);}	##5'offset for reverse strand
+        if ($offset<0 && $array[1] eq 0){($array[3]=($array[3]+length($array[9])-1)+$offset);}	##3'offset for forward strand
+        if ($offset<0 && $array[1] eq 16){$array[3]=($array[3]-$offset);}	##3' offset for reverse strand
 	$unique_orientation{$array[3]}=$array[1];
 	$type{$array[3]}++;
 }
@@ -102,8 +104,11 @@ while(<ABSRNA>)
         chomp;
         next if(/^(\@)/);
         my @array=  split(/\s+/);
-	 if ($offset >=0){$array[3]=$array[3]+$offset;}
-        if ($offset<0){(($array[3]=$array[3]+length($array[9])-1)+$offset);}
+   	if ($offset >=0 && $array[1] eq 0){$array[3]=$array[3]+$offset;}
+        if ($offset >=0 && $array[1] eq 16){$array[3]=(($array[3]+length($array[9])-1)-$offset);}
+        if ($offset<0 && $array[1] eq 0){($array[3]=($array[3]+length($array[9])-1)+$offset);}
+        if ($offset<0 && $array[1] eq 16){$array[3]=($array[3]-$offset);}
+
         $unique_orientationrna{$array[3]}=$array[1];
         $typerna{$array[3]}++;
 
@@ -132,8 +137,10 @@ while(<RNASEQPLOT>)
 	chomp;
         next if(/^(\@)/);
         my @array=  split(/\s+/);
-	if ($offset >=0){$array[3]=$array[3]+$offset;}
-        if ($offset<0){(($array[3]=$array[3]+length($array[9])-1)+$offset);}
+   if ($offset >=0 && $array[1] eq 0){$array[3]=$array[3]+$offset;}
+        if ($offset >=0 && $array[1] eq 16){$array[3]=(($array[3]+length($array[9])-1)-$offset);}
+        if ($offset<0 && $array[1] eq 0){($array[3]=($array[3]+length($array[9])-1)+$offset);}
+        if ($offset<0 && $array[1] eq 16){$array[3]=($array[3]-$offset);}
 	push @names_rnaseq, $array[1];
 	push @scores_rnaseq,$array[2];
 }
