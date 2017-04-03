@@ -61,12 +61,16 @@ while(<F1>)
 			}
 if($array[3]>=$win_start+750 && $array[3]<=$win_end)
 	{	
-	if ($offset >=0)        {push @overlap_values, ($array[3]+$offset);}
-        if ($offset<0) {push @overlap_values, (($array[3]+length($array[9])-1)+$offset);}
+if ($offset >=0 && $array[1] eq 0)      {push @overlap_values, ($array[3]+$offset);}  ##5' offset for forward strand
+if ($offset >=0 && $array[1] eq 16){push @overlap_values, (($array[3]+length($array[9])-1)-$offset);} ##5'offset for reverse strand
+if ($offset<0 && $array[1] eq 0) {push @overlap_values, (($array[3]+length($array[9])-1)+$offset);} ##3'offset for forward strand
+if ($offset >=0 && $array[1] eq 16){push @overlap_values,($array[3]-$offset);} ##3' offset for reverse strand
 
 	}
-	if ($offset >=0)        {push @values, ($array[3]+$offset);}                    ## after defining windows keep tracj of coordinates// ## gene name and coordinates will be kept contast by condition above
-if ($offset<0){push @values, (($array[3]+length($array[9])-1)+$offset);}
+if ($offset >=0 && $array[1] eq 0)      {push @values, ($array[3]+$offset);}    ##5'offset for forward strand           ## after defining windows keep tracj of coordinates// ## gene name and coordinates will be kept contast by condition above
+if ($offset >=0 && $array[1] eq 16) {push @values, (($array[3]+length($array[9])-1)-$offset);}  ##5'offset for reverse strand
+if ($offset<0 && $array[1] eq 0){push @values, (($array[3]+length($array[9])-1)+$offset);} ##(its coordinate_pos+read_len)-offset ##sign is + as value will be in minus
+if ($offset<0 && $array[1] eq 16) {push @values,($array[3]-$offset);}
 	}
 }
 
