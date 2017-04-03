@@ -7,7 +7,7 @@ use List::Util qw( min max );
 use Bio::DB::Fasta;
 use Statistics::R;
 
-if(@ARGV<3){print "Input files are <first_bam_file><Fasta sequence file><gene/transscript/chr:strt-end>\n"; die;}
+if(@ARGV<3){print "Input files are <first_bam_file><Fasta sequence file><gene/transscript/chr:strt-end><second bam file(optional)>\n"; die;}
 my $bam_file=$ARGV[0];
 my $fasta_file=$ARGV[1];
 my $gene_list=$ARGV[2];
