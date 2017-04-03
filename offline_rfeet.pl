@@ -20,7 +20,7 @@ chomp (my $legend1 =<STDIN>);
 print "Please enter legend to be shown for second file. Press enter if only one file is used\n";
 chomp (my $legend2 =<STDIN>);
 my $cov_plot;
-if($plottype eq 'absolute')
+if($plottype eq 'absolute' && defined $bam_file_rnaseq)
 {
 print "Please write 'coverage' if you want second file to be a coverage plot. Press enter if only one file is used or if you dont want a coverage plot\n";
 chomp ($cov_plot=<STDIN>);
