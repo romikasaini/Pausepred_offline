@@ -2,7 +2,7 @@
 ##Author: Romika Kumari
 use strict;
 use Bio::DB::Fasta;
-if(@ARGV<8){print "Inputs are <BAM_file><window_size><foldchange for pause><reference fasta file><read_length_min><read_length_max><coverage><upstream sequence><downstream sequence>\n";}
+if(@ARGV<9){print "Inputs are <BAM_file><window_size><foldchange for pause><reference fasta file><read_length_min><read_length_max><coverage><upstream sequence><downstream sequence><offset_value>\n";}
 my $bam_file=$ARGV[0];
 my $window = $ARGV[1];
 my $foldchange=$ARGV[2]; 
