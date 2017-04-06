@@ -92,7 +92,8 @@ my $coverage=(scalar(@occu)/$window)*100;
 		my $pause_score=$type->{$seq_id}->{$_}/$average;
 		if ($type->{$seq_id}->{$_} >= $average*$foldchange && $coverage>=$cov)
 		{		
-			$output_arr->[scalar @{$output_arr}]= [$seq_id, $_, $type->{$seq_id}->{$_},$pause_score,$coverage,$seq_up,$seq_down];
+			my $pause_score2=sprintf("%.2f",$pause_score);
+			$output_arr->[scalar @{$output_arr}]= [$seq_id, $_, $type->{$seq_id}->{$_},$pause_score2,$coverage,$seq_up,$seq_down];
 			$freq_track->{$seq_id.$_}++;
 			
 		}
