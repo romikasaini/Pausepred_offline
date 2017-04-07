@@ -14,7 +14,6 @@ my $gene_list=$ARGV[2];
 my $bam_file_rnaseq=$ARGV[3];
 print "Please enter plot type(i.e absolute or normalized)\n";
 chomp (my $plottype=<STDIN>);
-if(!defined $bam_file_rnaseq && $plottype eq 'normalized'){die "Please enter second file for normalized plot.\n";}
 print "Please enter legend to be shown for first file\n";
 chomp (my $legend1 =<STDIN>);
 print "Please enter legend to be shown for second file. Press enter if only one file is used\n";
@@ -343,7 +342,11 @@ $R->run( qq`png("$gene_name-$plot_strt-$plot_end.png",res = 500, pointsize =4, w
 		$R->run( q`dev.off()` );
 		$R->run(q`scores_fwdrna[is.na(scores_fwdrna)] <- 0`);
                 $R->run(q`scores_fwd[is.na(scores_fwd)] <- 0`);
+		 if(defined $bam_file_rnaseq)
+                {
 		$R->run(q`write.csv(data.frame(coordinate_position=pos_riboseq, reads_mapped_file1=scores_fwd,reads_mapped_file2=scores_fwdrna), file=paste(name,"-",xmin,"-",xmax,"-",".csv",sep=""))`);  
+		}
+		else{$R->run(q`write.csv(data.frame(coordinate_position=pos_riboseq, reads_mapped_file1=scores_fwd), file=paste(name,"-",xmin,"-",xmax,".csv",sep=""))`);}
 }
 
 if($frame_loop==5)
@@ -429,16 +432,16 @@ $R->run( qq`png("$gene_name-$plot_strt-$plot_end.png",res = 500, pointsize =4, w
                 $R->run(q`scores_fwd[is.na(scores_fwd)] <- 0`);
                 $R->run(q`scores_revrna[is.na(scores_revrna)] <- 0`);
                 $R->run(q`scores_rev[is.na(scores_rev)] <- 0`);
- 
+ 		if(defined $bam_file_rnaseq)
+                {
 		$R->run(q`write.csv(data.frame(coordinate_position=pos_riboseq, reads_mapped_file1=scores_fwd+scores_rev,reads_mapped_file2=scores_fwdrna+scores_revrna),file=paste(name,"-",xmin,"-",xmax,"-",".csv",sep=""))`);
-
+		}
+		else{$R->run(q`write.csv(data.frame(coordinate_position=pos_riboseq, reads_mapped_file1=scores_fwd+scores_rev),file=paste(name,"-",xmin,"-",xmax,".csv",sep=""))`);}
 
 }
 }
 ######################################
 ###################################### Normalized plot
-if(defined $bam_file_rnaseq)
-{
 if($plottype eq 'normalized')
 {
 if($frame_loop==2)
@@ -451,16 +454,20 @@ $R->run( qq`png("$gene_name-$plot_strt-$plot_end.png",res = 500, pointsize =4, w
 		$R->set('name',$gene_name);
 		$R->run( q`layout(matrix(c(1,1,2,2,3,3,4,4,5,5), nrow = 5, ncol = 2, byrow = TRUE),heights = c(14,1,1,1,1))`);
 		$R->run(q`mini<-min(sum(scores_fwd),sum(scores_fwdrna))`);
-		$R->run(q`ratio1<-sum(scores_fwd)/mini`);
-		$R->run(q`ratio2<-sum(scores_fwdrna)/mini`);
-		$R->run(q`ymax_local<-max((scores_fwdrna/ratio2),(scores_fwd/ratio1))`);
+		$R->run(q`file1_total<-sum(scores_fwd)`);
+                $R->run(q`file2_total<-sum(scores_fwdrna)`);
+                if(defined $bam_file_rnaseq)
+                {
+                $R->run(q`ymax_local<-max((scores_fwdrna/file2_total),(scores_fwd/file1_total))`);
+                }
+                else{$R->run(q`ymax_local<-max((scores_fwd/file1_total))`);}
 		$R->run(q`scores_fwdrna[which(scores_fwdrna==0)]=NA`);
 		$R->run(q`scores_fwd[which(scores_fwd==0)]=NA`);
 		$R->run( q`par(mar=c(8,8,4,4),mgp=c(5,1,0))`);
-		$R->run( q`plot(pos_riboseq,(scores_fwdrna/ratio2),xlim=c(xmin,xmax), ylim=c(0,ymax_local),type='h', xlab="coordinate positions",ylab="no.of reads mapped",col='black',bty='l',lwd=1,cex.lab=2,cex.axis=2,cex.main=2)` );
+		$R->run( q`plot(pos_riboseq,(scores_fwdrna/file2_total),xlim=c(xmin,xmax), ylim=c(0,ymax_local),type='h', xlab="coordinate positions",ylab="no.of reads mapped",col='black',bty='l',lwd=1,cex.lab=2,cex.axis=2,cex.main=2)` );
 		$R->run( q`legend("topright", c("riboseq","rnaseq"), cex=2, col=c("red","black"), lwd=c(2,2,2),bty="n")`);
 		$R->run( q`par(new=TRUE)` );
-		$R->run( q`plot(pos_riboseq,(scores_fwd/ratio1),xlim=c(xmin,xmax),ylim=c(0,ymax_local),type='h', xlab="coordinate positions",ylab="no.of reads mapped",col=rgb(red=1, green=0, blue=0, alpha=0.5),bty='l',lwd=1,cex.lab=2,cex.axis=2,cex.main=2)` );
+		$R->run( q`plot(pos_riboseq,(scores_fwd/file1_total),xlim=c(xmin,xmax),ylim=c(0,ymax_local),type='h', xlab="coordinate positions",ylab="no.of reads mapped",col=rgb(red=1, green=0, blue=0, alpha=0.5),bty='l',lwd=1,cex.lab=2,cex.axis=2,cex.main=2)` );
 		$R->run( q`par(mar=c(0,8,1,4))`);
 		$R->run(q`f0_start[which(f0_start==0)]=NA`);
                 $R->run(q`f1_start[which(f1_start==0)]=NA`);
@@ -480,7 +487,11 @@ $R->run( qq`png("$gene_name-$plot_strt-$plot_end.png",res = 500, pointsize =4, w
 		$R->run( q`dev.off()` );
 		         $R->run(q`scores_fwdrna[is.na(scores_fwdrna)] <- 0`);
                 $R->run(q`scores_fwd[is.na(scores_fwd)] <- 0`);  
-		$R->run(q`write.csv(data.frame(coordinate_position=pos_riboseq, reads_mapped_file1=scores_fwd,reads_mapped_file2=scores_fwdrna,normalized_file1=(scores_fwd/ratio1),normalized_file2=(scores_fwdrna/ratio2)),file=paste(name,"-",xmin,"-",xmax,"-",".csv",sep=""))`);
+		if(defined $bam_file_rnaseq)
+                {
+		$R->run(q`write.csv(data.frame(coordinate_position=pos_riboseq, reads_mapped_file1=scores_fwd,reads_mapped_file2=scores_fwdrna,normalized_file1=(scores_fwd/file1_total),normalized_file2=(scores_fwdrna/file2_total)),file=paste(name,"-",xmin,"-",xmax,".csv",sep=""))`);
+		}
+		else{$R->run(q`write.csv(data.frame(coordinate_position=pos_riboseq, reads_mapped_file1=scores_fwd,normalized_file1=(scores_fwd/file1_total)),file=paste(name,"-",xmin,"-",xmax,".csv",sep=""))`);}
 }
 
 if($frame_loop==5)
@@ -491,24 +502,27 @@ $R->run( qq`png("$gene_name-$plot_strt-$plot_end.png",res = 500, pointsize =4, w
 		$R->set('xmax',$plot_end);
 		$R->set('ymax',$highestvalue);
 		$R->set('name',$gene_name);
-		$R->run(q`mini<-min(sum(scores_fwd+scores_rev),sum(scores_fwdrna+scores_revrna))`);
-                $R->run(q`ratio1<-sum(scores_fwd+scores_rev)/mini`);
-                $R->run(q`ratio2<-sum(scores_fwdrna+scores_revrna)/mini`);
-		$R->run(q`ymax_local<-max((scores_fwdrna/ratio2),(scores_fwd/ratio1),(scores_revrna/ratio2),(scores_rev/ratio1))`);
+		$R->run(q`file1_total<-sum(scores_fwd+scores_rev)`);
+                $R->run(q`file2_total<-sum(scores_fwdrna+scores_revrna)`);
+                if(defined $bam_file_rnaseq)
+                {
+                $R->run(q`ymax_local<-max((scores_fwdrna/file2_total),(scores_fwd/file1_total),(scores_revrna/file2_total),(scores_rev/file1_total))`);
+                }
+                else{$R->run(q`ymax_local<-max((scores_fwd/file1_total),(scores_rev/file1_total))`);}
 		$R->run(q`scores_fwdrna[which(scores_fwdrna==0)]=NA`);
 		$R->run(q`scores_fwd[(scores_fwd==0)]=NA`);
 		$R->run(q`scores_revrna[which(scores_revrna==0)]=NA`);
 		$R->run(q`scores_rev[which(scores_rev==0)]=NA`);
 		$R->run( q`layout(matrix(c(1,1,2,2,3,3,4,4,5,5,6,6,7,7,8,8), nrow = 8, ncol = 2, byrow = TRUE),heights = c(14,1,1,1,1,1,1,1))`);
 		$R->run( q`par(mar=c(8,8,4,4),mgp=c(5,1,0))`);
-		$R->run( q`plot(pos_riboseq,scores_fwdrna/ratio2,xlim=c(xmin,xmax), ylim=c(0,ymax_local),type='h', xlab="coordinate positions",ylab="no.of reads mapped",col='black',bty='l',lwd=1,cex.lab=2,cex.axis=2,cex.main=2)` );
+		$R->run( q`plot(pos_riboseq,scores_fwdrna/file2_total,xlim=c(xmin,xmax), ylim=c(0,ymax_local),type='h', xlab="coordinate positions",ylab="no.of reads mapped",col='black',bty='l',lwd=1,cex.lab=2,cex.axis=2,cex.main=2)` );
 		$R->run( q`par(new=TRUE)` );
-		$R->run( q`plot(pos_riboseq,scores_revrna/ratio2,xlim=c(xmin,xmax), ylim=c(0,ymax_local),type='h', xlab="coordinate positions",ylab="no.of reads mapped",col='chartreuse4',bty='l',lwd=1,cex.lab=2,cex.axis=2,cex.main=2)` );
+		$R->run( q`plot(pos_riboseq,scores_revrna/file2_total,xlim=c(xmin,xmax), ylim=c(0,ymax_local),type='h', xlab="coordinate positions",ylab="no.of reads mapped",col='chartreuse4',bty='l',lwd=1,cex.lab=2,cex.axis=2,cex.main=2)` );
 		$R->run( q`legend("topright", c(paste("riboseq", " (", "foward",")", sep=""),paste("riboseq", " (", "reverse",")", sep=""),paste("rnaseq", " (", "foward",")", sep=""),paste("rnaseq", " (", "reverse",")", sep="")), cex=2, col=c("red","blue","black","chartreuse4"), lwd=c(2,2),bty="n")`);
 		$R->run( q`par(new=TRUE)` );
-		$R->run( q`plot(pos_riboseq,scores_fwd/ratio1,xlim=c(xmin,xmax),ylim=c(0,ymax_local),type='h', xlab="coordinate positions",ylab="no.of reads mapped",col=rgb(red=1, green=0, blue=0, alpha=0.5),bty='l',lwd=1,cex.lab=2,cex.axis=2,cex.main=2)` );
+		$R->run( q`plot(pos_riboseq,scores_fwd/file1_total,xlim=c(xmin,xmax),ylim=c(0,ymax_local),type='h', xlab="coordinate positions",ylab="no.of reads mapped",col=rgb(red=1, green=0, blue=0, alpha=0.5),bty='l',lwd=1,cex.lab=2,cex.axis=2,cex.main=2)` );
 		$R->run( q`par(new=TRUE)` );
-		$R->run( q`plot(pos_riboseq,scores_rev/ratio1,xlim=c(xmin,xmax),ylim=c(0,ymax_local),type='h', xlab="coordinate positions",ylab="no.of reads mapped",col=rgb(red=0, green=0, blue=1, alpha=0.5),bty='l',lwd=1,cex.lab=2,cex.axis=2,cex.main=2)` );
+		$R->run( q`plot(pos_riboseq,scores_rev/file1_total,xlim=c(xmin,xmax),ylim=c(0,ymax_local),type='h', xlab="coordinate positions",ylab="no.of reads mapped",col=rgb(red=0, green=0, blue=1, alpha=0.5),bty='l',lwd=1,cex.lab=2,cex.axis=2,cex.main=2)` );
 		$R->run( q`par(mar=c(0,8,1,4))`);
 		$R->run(q`f0_start[which(f0_start==0)]=NA`);
                 $R->run(q`f1_start[which(f1_start==0)]=NA`);
@@ -545,9 +559,12 @@ $R->run( qq`png("$gene_name-$plot_strt-$plot_end.png",res = 500, pointsize =4, w
                 $R->run(q`scores_fwd[is.na(scores_fwd)] <- 0`);
                 $R->run(q`scores_revrna[is.na(scores_revrna)] <- 0`);
                 $R->run(q`scores_rev[is.na(scores_rev)] <- 0`);
-
-		$R->run(q`write.csv(data.frame(coordinate_position=pos_riboseq, reads_mapped_file1=scores_fwd+scores_rev,reads_mapped_file2=scores_fwdrna+scores_revrna,normalized_file1=((scores_fwd+scores_rev)/ratio1),normalized_file2=((scores_fwdrna+scores_revrna)/ratio2)),file=paste(name,"-",xmin,"-",xmax,"-",".csv",sep=""))`);
-
+		if(defined $bam_file_rnaseq)
+                {
+		$R->run(q`write.csv(data.frame(coordinate_position=pos_riboseq, reads_mapped_file1=scores_fwd+scores_rev,reads_mapped_file2=scores_fwdrna+scores_revrna,normalized_file1=((scores_fwd+scores_rev)/file1_total),normalized_file2=((scores_fwdrna+scores_revrna)/file2_total)),file=paste(name,"-",xmin,"-",xmax,".csv",sep=""))`);
+		}
+		else{$R->run(q`write.csv(data.frame(coordinate_position=pos_riboseq, reads_mapped_file1=scores_fwd+scores_rev,normalized_file1=((scores_fwd+scores_rev)/file1_total)),file=paste(name,"-",xmin,"-",xmax,".csv",sep=""))`);}
+		
 }
 }
 }
