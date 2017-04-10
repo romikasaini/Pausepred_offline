@@ -567,7 +567,6 @@ $R->run( qq`png("$gene_name-$plot_strt-$plot_end.png",res = 500, pointsize =4, w
 		
 }
 }
-}
 
 sub reverse {
         my $seq = shift;
