@@ -41,7 +41,7 @@ first_bam_file, Fasta sequence, file, gene/transscript/chr:strt-end, comma_separ
 Inputs should be provided in the order mentioned above, delimited by space. Additional inputs such as legend names, plot type etc. will be requested through the console once the script is initiated.
 
 ## Example command:
->perl offline_rfeet.pl example1_sorted.bam example_sequence.fa chr:3347-4347 example2_sorted.bam 15,15,15,15 28,29,30,31
+>perl offline_rfeet.pl example1_sorted.bam example_sequence.fa chr:3347-4347 15,15,15,15 28,29,30,31
 
 note: Second file is optional and multiple genes/chromosome locations can ploted at a time using a comma separated input as shown in the example given below.
 >perl offline_rfeet.pl example1_sorted.bam example_sequence.fa chr:3347-4347,chr:2347-3346,chr:4348-5346 15,15,15,15 28,29,30,31 example2_sorted.bam 15,15,15,15 28,29,30,31
