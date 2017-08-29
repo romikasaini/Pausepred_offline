@@ -7,11 +7,15 @@ use List::Util qw( min max );
 use Bio::DB::Fasta;
 use Statistics::R;
 
-if(@ARGV<3){print "Input files are <first_bam_file><Fasta sequence file><gene/transscript/chr:strt-end><second_bam_file(optional)>\n"; die;}
+if(@ARGV<5){print "Inputs are <BAM alignment file><reference fasta file><gene list><comma separated list of offsets><comma separated list of read lengths>\n"; print "\n"; die "If you have second input file, then above mentioned inputs will be followed by <BAM alignment file2><comma separated offsets for second file><read lengths for second file>\n";}
 my $bam_file=$ARGV[0];
 my $fasta_file=$ARGV[1];
 my $gene_list=$ARGV[2];
-my $bam_file_rnaseq=$ARGV[3];
+my $offset1=$ARGV[3];
+my $readlen1=$ARGV[4];
+my $bam_file_rnaseq=$ARGV[5];
+my $offset2=$ARGV[6];
+my $readlen2=$ARGV[7];
 print "Please enter plot type(i.e absolute or normalized)\n";
 chomp (my $plottype=<STDIN>);
 print "Please enter legend to be shown for first file\n";
@@ -78,6 +82,9 @@ open ABSRNA , "samtools view $bam_file_rnaseq '$gene_name:$plot_strt-$plot_end' 
 my ($profile, $frame_plot);
 my %unique_orientation ;
 my %unique_orientationrna;
+my @read_len1=split/,/,$readlen1;
+my @off_set1=split/,/,$offset1;
+
 
 while(<PLOTCOD>)
 {
@@ -85,16 +92,28 @@ while(<PLOTCOD>)
 	chomp;
 	next if(/^(\@)/);
 	my @array=  split(/\s+/);
-        if ($offset >=0 && $array[1] eq 0){$array[3]=$array[3]+$offset;}	##5' offset for forward strand
-        if ($offset >=0 && $array[1] eq 16){$array[3]=(($array[3]+length($array[9])-1)-$offset);}	##5'offset for reverse strand
-        if ($offset<0 && $array[1] eq 0){($array[3]=($array[3]+length($array[9])-1)+$offset);}	##3'offset for forward strand
-        if ($offset<0 && $array[1] eq 16){$array[3]=($array[3]-$offset);}	##3' offset for reverse strand
+      my $pos;
+        for(my $i=0;$i<=scalar @read_len1;$i++) ##loop to add different offsets to different read lengths        
+                {
+
+                if ($off_set1[$i] >=0 && $array[1] eq 0 && $read_len1[$i]==length($array[9])){ $pos=$array[3]+$off_set1[$i];}
+                if ($off_set1[$i] >=0 && $array[1] eq 16 && $read_len1[$i]==length($array[9])){ $pos=(($array[3]+length($array[9])-1)-$off_set1[$i]);}
+                if ($off_set1[$i]<0 && $array[1] eq 0 && $read_len1[$i]==length($array[9])){($pos=($array[3]+length($array[9])-1)+$off_set1[$i]);}
+                if ($off_set1[$i]<0 && $array[1] eq 16 && $read_len1[$i]==length($array[9])){$pos=($array[3]-$off_set1[$i]);}
+                }
+
+
 	$unique_orientation{$array[3]}=$array[1];
-	$type{$array[3]}++;
+	      if (defined $pos)
+        {
+        $type{$pos}++;
+        }
+
 }
 
 my $new_filled_hash = fill_hash(\%type,5);
-	
+my @read_len2=split/,/,$readlen2;
+my @off_set2=split/,/,$offset2;	
 
 
 while(<ABSRNA>)
@@ -103,18 +122,25 @@ while(<ABSRNA>)
         chomp;
         next if(/^(\@)/);
         my @array=  split(/\s+/);
-   	if ($offset >=0 && $array[1] eq 0){$array[3]=$array[3]+$offset;}
-        if ($offset >=0 && $array[1] eq 16){$array[3]=(($array[3]+length($array[9])-1)-$offset);}
-        if ($offset<0 && $array[1] eq 0){($array[3]=($array[3]+length($array[9])-1)+$offset);}
-        if ($offset<0 && $array[1] eq 16){$array[3]=($array[3]-$offset);}
+             my $pos2;                                                                                                                                                                            135,1-8       13%
+        for(my $i=0;$i<=scalar @read_len2;$i++) ##loop to add different offsets to different read lengths                                                                                         136,1         13%
+                {                                                                                                                                                                                 137,1         13%
+                                                                                                                                                                                                  138,0-1       14%
+                if ($off_set2[$i] >=0 && $array[1] eq 0 && $read_len2[$i]==length($array[9])){ $pos2=$array[3]+$off_set2[$i];}                                                                    139,1         14%
 
+                if ($off_set2[$i]<0 && $array[1] eq 0 && $read_len2[$i]==length($array[9])){($pos2=($array[3]+length($array[9])-1)+$off_set2[$i]);}]);}                                           141,1         14%
+                if ($off_set2[$i]<0 && $array[1] eq 16 && $read_len2[$i]==length($array[9])){$pos2=($array[3]-$off_set2[$i]);}                                                                    142,1         14%
+                }   
         $unique_orientationrna{$array[3]}=$array[1];
-        $typerna{$array[3]}++;
+         if (defined $pos2)                                                                                                                                                                        146,1-8       15%
+        {                                                                                                                                                                                         147,1-8       15%
+        $typerna{$pos2}++;                                                                                                                                                                        148,1         15%
+        } 
 
 }
 
 my $new_filled_hashrna = fill_hash(\%typerna,5);
-        
+       
 
 foreach my$key (sort {$a<=>$b} keys %$new_filled_hash)
         {
@@ -136,10 +162,6 @@ while(<RNASEQPLOT>)
 	chomp;
         next if(/^(\@)/);
         my @array=  split(/\s+/);
-   if ($offset >=0 && $array[1] eq 0){$array[3]=$array[3]+$offset;}
-        if ($offset >=0 && $array[1] eq 16){$array[3]=(($array[3]+length($array[9])-1)-$offset);}
-        if ($offset<0 && $array[1] eq 0){($array[3]=($array[3]+length($array[9])-1)+$offset);}
-        if ($offset<0 && $array[1] eq 16){$array[3]=($array[3]-$offset);}
 	push @names_rnaseq, $array[1];
 	push @scores_rnaseq,$array[2];
 }
