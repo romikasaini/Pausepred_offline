@@ -2,17 +2,16 @@
 ##Author: Romika Kumari
 use strict;
 use Bio::DB::Fasta;
-if(@ARGV<9){print "Inputs are <BAM_file><window_size><foldchange for pause><reference fasta file><read_length_min><read_length_max><coverage><upstream sequence><downstream sequence><offset_value>\n";}
+if(@ARGV<9){die "\nInputs are <BAM_file><window_size><foldchange for pause><reference fasta file><comma separated read lengths><window coverage><upstream sequence><downstream sequence><comma separated offset_value>\n\n";}
 my $bam_file=$ARGV[0];
 my $window = $ARGV[1];
 my $foldchange=$ARGV[2]; 
 my $fasta_file=$ARGV[3];
-my $readlength_min=$ARGV[4];
-my $readlength_max=$ARGV[5];
-my $cov=$ARGV[6];
-my $US_seq= $ARGV[7];
-my $DS_seq= $ARGV[8];
-my $offset= $ARGV[9];
+my $readlength=$ARGV[4];
+my $cov=$ARGV[5];
+my $US_seq= $ARGV[6];
+my $DS_seq= $ARGV[7];
+my $offset= $ARGV[8];
 print "Please enter output file name\n";
 chomp (my $outfile=<STDIN>);
 my $db = Bio::DB::Fasta->new($fasta_file);
@@ -27,13 +26,26 @@ my ($win_start,$win_end,@values,$seq_id, %id_sort_chk, %type,@overlap_values);		
 my @out_file;
 my %freq_track;
 
+my @read_len=split/,/,$readlength;
+my @off_set=split/,/,$offset;
+
+
 while(<F1>)
 {
 	chomp;
 	next if(/^(\@)/);
 	my @array=  split(/\s+/);
+	
+	##to add offsets to the positions
+	for(my $i=0;$i<=scalar @read_len;$i++){
+   if ($off_set[$i] >=0 && $array[1] eq 0 && $read_len[$i]==length($array[9]))     {$array[3]=($array[3]+$off_set[$i]);}  ##5' offset for forward strand
+                if ($off_set[$i] >=0 && $array[1] eq 16 && $read_len[$i]==length($array[9])){$array[3]=(($array[3]+length($array[9])-1)-$off_set[$i]);} ##5'offset for reverse strand
+                if ($off_set[$i]<0 && $array[1] eq 0 && $read_len[$i]==length($array[9])) {$array[3]=(($array[3]+length($array[9])-1)+$off_set[$i]);} ##3'offset for forward strand
+                if ($off_set[$i] >=0 && $array[1] eq 16 && $read_len[$i]==length($array[9])){$array[3]=($array[3]-$off_set[$i]);} ##3' offset for reverse strand
+                                }
+
 ##Conditions to create new windows
-	if($array[2]=~/[a-zA-Z]/ && length($array[9]) >=$ARGV[4] && length($array[9]) <= $ARGV[5])
+	if( $array[2]=~/[a-zA-Z]/ && length($array[9]) >=@read_len[0] && length($array[9]) <= @read_len[-1])
 	{
 		
 		if($seq_id ne $array[2])
@@ -49,7 +61,7 @@ while(<F1>)
 			}
 		elsif( $array[3]>$win_end )			## if the current cordinate falls out of the current wondow
 			{
-				process(\@values,\%type,$win_start,$win_end,$seq_id,\@out_file,\%freq_track)if (scalar @values) >1;
+				#process(\@values,\%type,$win_start,$win_end,$seq_id,\@out_file,\%freq_track)if (scalar @values) >1;
 				x:	
 				$win_start=($win_end+1)-($window*.5);
 				$win_end=($win_start+$window)-1;
@@ -61,16 +73,9 @@ while(<F1>)
 			}
 if($array[3]>=$win_start+750 && $array[3]<=$win_end)
 	{	
-if ($offset >=0 && $array[1] eq 0)      {push @overlap_values, ($array[3]+$offset);}  ##5' offset for forward strand
-if ($offset >=0 && $array[1] eq 16){push @overlap_values, (($array[3]+length($array[9])-1)-$offset);} ##5'offset for reverse strand
-if ($offset<0 && $array[1] eq 0) {push @overlap_values, (($array[3]+length($array[9])-1)+$offset);} ##3'offset for forward strand
-if ($offset >=0 && $array[1] eq 16){push @overlap_values,($array[3]-$offset);} ##3' offset for reverse strand
-
+	push @overlap_values,$pos;
 	}
-if ($offset >=0 && $array[1] eq 0)      {push @values, ($array[3]+$offset);}    ##5'offset for forward strand           ## after defining windows keep tracj of coordinates// ## gene name and coordinates will be kept contast by condition above
-if ($offset >=0 && $array[1] eq 16) {push @values, (($array[3]+length($array[9])-1)-$offset);}  ##5'offset for reverse strand
-if ($offset<0 && $array[1] eq 0){push @values, (($array[3]+length($array[9])-1)+$offset);} ##(its coordinate_pos+read_len)-offset ##sign is + as value will be in minus
-if ($offset<0 && $array[1] eq 16) {push @values,($array[3]-$offset);}
+	push @values,$pos;
 	}
 }
 
