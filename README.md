@@ -31,7 +31,7 @@ Rfeet is written using Perl scripting language(Perl 5, version 18, subversion 2 
 
 ## Inputs required to run the stand-alone version:
 
-#####for one input file 
+##### For single input file 
 
 first_bam_file, Fasta sequence, file, gene/transscript/chr:strt-end, comma_separated_offsets, comma_separated_read_lengths
 
