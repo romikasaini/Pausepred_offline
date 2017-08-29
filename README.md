@@ -30,17 +30,19 @@ Rfeet generates a graphical view of the ribosome footprint density across a gene
 Rfeet is written using Perl scripting language(Perl 5, version 18, subversion 2 (v5.18.2 )) and R programming language.
 
 ## Inputs required to run the stand-alone version:
-first_bam_file, Fasta sequence, file, gene/transscript/chr:strt-end, second_bam_file
+#####for one input file 
+first_bam_file, Fasta sequence, file, gene/transscript/chr:strt-end, comma_separated_offsets, comma_separated_read_lengths
 
 ##### Note: second file is optional
+first_bam_file, Fasta sequence, file, gene/transscript/chr:strt-end, comma_separated_offsets, comma_separated_read_lengths, second_bam_file,comma_separated_offsets_2, comma_separated_read_lengths_2
 
 Inputs should be provided in the order mentioned above, delimited by space. Additional inputs such as legend names, plot type etc. will be requested through the console once the script is initiated.
 
 ## Example command:
->perl offline_rfeet.pl example1_sorted.bam example_sequence.fa chr:3347-4347 example2_sorted.bam
+>perl offline_rfeet.pl example1_sorted.bam example_sequence.fa chr:3347-4347 example2_sorted.bam 15,15,15,15 28,29,30,31
 
 note: Second file is optional and multiple genes/chromosome locations can ploted at a time using a comma separated input as shown in the example given below.
->perl offline_rfeet.pl example1_sorted.bam example_sequence.fa chr:3347-4347,chr:2347-3346,chr:4348-5346 example2_sorted.bam
+>perl offline_rfeet.pl example1_sorted.bam example_sequence.fa chr:3347-4347,chr:2347-3346,chr:4348-5346 15,15,15,15 28,29,30,31 example2_sorted.bam 15,15,15,15 28,29,30,31
 
 ## Modules/Packages required to run standalone version:
 1. SAMtools(Follow this link to install http://www.htslib.org/download/)
