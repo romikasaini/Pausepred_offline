@@ -30,7 +30,9 @@ Rfeet generates a graphical view of the ribosome footprint density across a gene
 Rfeet is written using Perl scripting language(Perl 5, version 18, subversion 2 (v5.18.2 )) and R programming language.
 
 ## Inputs required to run the stand-alone version:
+
 #####for one input file 
+
 first_bam_file, Fasta sequence, file, gene/transscript/chr:strt-end, comma_separated_offsets, comma_separated_read_lengths
 
 ##### Note: second file is optional
