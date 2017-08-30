@@ -62,7 +62,7 @@ my $pos;
 			}
 		elsif( $array[3]>$win_end )			## if the current cordinate falls out of the current wondow
 			{
-				#process(\@values,\%type,$win_start,$win_end,$seq_id,\@out_file,\%freq_track)if (scalar @values) >1;
+				process(\@values,\%type,$win_start,$win_end,$seq_id,\@out_file,\%freq_track)if (scalar @values) >1;
 				x:	
 				$win_start=($win_end+1)-($window*.5);
 				$win_end=($win_start+$window)-1;
