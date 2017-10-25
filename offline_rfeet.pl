@@ -35,7 +35,7 @@ my ($plot_strt,$plot_end,$frame_loop);
 my $gene_name;
 my @gene_list_array=split/\,/,$gene_list;
 
-print "Command used :perl offline_rfeet $bam_file\t$fasta_file\t$gene_list\t$bam_file_rnaseq\t$plottype\t$legend1\t$legend2\t$cov_plot\t$offset\n";
+print "Command used :perl offline_rfeet $bam_file\t$fasta_file\t$gene_list\t$bam_file_rnaseq\t$plottype\t$legend1\t$legend2\t$cov_plot\t$offset1\t$offset2\n";
 print "Output files will be created shortly...\n";
 foreach my $gene_name(@gene_list_array)
 {
