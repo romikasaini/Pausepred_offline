@@ -122,19 +122,19 @@ while(<ABSRNA>)
         chomp;
         next if(/^(\@)/);
         my @array=  split(/\s+/);
-             my $pos2;                                                                                                                                                                            135,1-8       13%
-        for(my $i=0;$i<=scalar @read_len2;$i++) ##loop to add different offsets to different read lengths                                                                                         136,1         13%
-                {                                                                                                                                                                                 137,1         13%
-                                                                                                                                                                                                  138,0-1       14%
-                if ($off_set2[$i] >=0 && $array[1] eq 0 && $read_len2[$i]==length($array[9])){ $pos2=$array[3]+$off_set2[$i];}                                                                    139,1         14%
+             my $pos2;                                                                                                                                                                           
+        for(my $i=0;$i<=scalar @read_len2;$i++) ##loop to add different offsets to different read lengths                                                                                         
+                {                                                                                                                                                                                
+                                                                                                                                                                                                 
+                if ($off_set2[$i] >=0 && $array[1] eq 0 && $read_len2[$i]==length($array[9])){ $pos2=$array[3]+$off_set2[$i];}                                                                   
 
-                if ($off_set2[$i]<0 && $array[1] eq 0 && $read_len2[$i]==length($array[9])){($pos2=($array[3]+length($array[9])-1)+$off_set2[$i]);}]);}                                           141,1         14%
-                if ($off_set2[$i]<0 && $array[1] eq 16 && $read_len2[$i]==length($array[9])){$pos2=($array[3]-$off_set2[$i]);}                                                                    142,1         14%
+                if ($off_set2[$i]<0 && $array[1] eq 0 && $read_len2[$i]==length($array[9])){($pos2=($array[3]+length($array[9])-1)+$off_set2[$i]);}]);}                                        
+                if ($off_set2[$i]<0 && $array[1] eq 16 && $read_len2[$i]==length($array[9])){$pos2=($array[3]-$off_set2[$i]);}                                                                    
                 }   
         $unique_orientationrna{$array[3]}=$array[1];
-         if (defined $pos2)                                                                                                                                                                        146,1-8       15%
-        {                                                                                                                                                                                         147,1-8       15%
-        $typerna{$pos2}++;                                                                                                                                                                        148,1         15%
+         if (defined $pos2)                                                                                                                                                                      
+        {                                                                                                                                                                                     
+        $typerna{$pos2}++;                                                                                                                                                                      
         } 
 
 }
