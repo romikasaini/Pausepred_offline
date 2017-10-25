@@ -127,8 +127,8 @@ while(<ABSRNA>)
                 {                                                                                                                                                                                
                                                                                                                                                                                                  
                 if ($off_set2[$i] >=0 && $array[1] eq 0 && $read_len2[$i]==length($array[9])){ $pos2=$array[3]+$off_set2[$i];}                                                                   
-
-                if ($off_set2[$i]<0 && $array[1] eq 0 && $read_len2[$i]==length($array[9])){($pos2=($array[3]+length($array[9])-1)+$off_set2[$i]);}]);}                                        
+		if ($off_set2[$i] >=0 && $array[1] eq 16 && $read_len2[$i]==length($array[9])){ $pos2=(($array[3]+length($array[9])-1)-$off_set2[$i]);}
+                if ($off_set2[$i]<0 && $array[1] eq 0 && $read_len2[$i]==length($array[9])){($pos2=($array[3]+length($array[9])-1)+$off_set2[$i]);}                                       
                 if ($off_set2[$i]<0 && $array[1] eq 16 && $read_len2[$i]==length($array[9])){$pos2=($array[3]-$off_set2[$i]);}                                                                    
                 }   
         $unique_orientationrna{$array[3]}=$array[1];
