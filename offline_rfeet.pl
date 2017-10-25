@@ -28,8 +28,8 @@ if($plottype eq 'absolute' && defined $bam_file_rnaseq)
 print "Please write 'coverage' if you want second file to be a coverage plot. Press enter if only one file is used or if you dont want a coverage plot\n";
 chomp ($cov_plot=<STDIN>);
 }
-print "Please enter offset value.\n";
-chomp (my $offset=<STDIN>);
+#print "Please enter offset value.\n";
+#chomp (my $offset=<STDIN>);
 
 my ($plot_strt,$plot_end,$frame_loop);
 my $gene_name;
