@@ -26,16 +26,15 @@ my ($win_start,$win_end,@values,$seq_id, %id_sort_chk, %type,@overlap_values);		
 my @out_file;
 my %freq_track;
 
-my @read_len=split/,/,$readlength;
-my @off_set=split/,/,$offset;
-
 
 while(<F1>)
 {
 	chomp;
 	next if(/^(\@)/);
 	my @array=  split(/\s+/);
-	
+	my @read_len=split/,/,$readlength;
+my @off_set=split/,/,$offset;
+
 	
 
 my $pos;
