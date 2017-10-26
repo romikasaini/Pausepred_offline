@@ -54,6 +54,7 @@ my $pos;
 					{
 						
 						process(\@values,\%type,$win_start,$win_end,$seq_id,\@out_file,\%freq_track) if (scalar @values) >1;
+						undef @overlap_values;
 					}
 		
 				$seq_id = $array[2];($win_start,$win_end)=(1,$window); 
