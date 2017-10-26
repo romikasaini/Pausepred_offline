@@ -72,7 +72,7 @@ my $pos;
 				goto x if( $array[3]>$win_start and $array[3]>$win_end ) ## if the current cordinate(45) falls doesnt belong to the new window(28-34); simply skip the window
 				
 			}
-if($array[3]>=$win_start+750 && $array[3]<=$win_end)
+if($array[3]>=($win_start+$win_end)/2 && $array[3]<=$win_end)
 	{	
 	push @overlap_values,$pos;
 	}
