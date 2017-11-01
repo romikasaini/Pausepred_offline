@@ -69,21 +69,26 @@ $plot_end=$length;
 $frame_loop=2;
 }
 
+my %unique_orientation ;
+my %unique_orientationrna;
+my @read_len1=split/,/,$readlen1;
+my @off_set1=split/,/,$offset1;
+my @read_len2=split/,/,$readlen2;
+my @off_set2=split/,/,$offset2;
+my $max_offset = max( @off_set1,@off_set2);
+my $plot_strt_mod=$plot_strt-$max_offset;
+my $plot_end_mod=$plot_end+$max_offset;
+
 
 system ("samtools index $bam_file");
-open PLOTCOD ,"samtools view $bam_file '$gene_name:$plot_strt-$plot_end' | awk '{if(\$4>=$plot_strt && \$4<=$plot_end) print \$0}' |";
+open PLOTCOD ,"samtools view $bam_file '$gene_name:$plot_strt_mod-$plot_end_mod' | awk '{if(\$4>=$plot_strt_mod && \$4<=$plot_end_mod) print \$0}' |";
 if(defined $bam_file_rnaseq)
 {
 system ("samtools index $bam_file_rnaseq");
 open RNASEQPLOT, "samtools view  -b $bam_file_rnaseq '$gene_name:$plot_strt-$plot_end' | genomeCoverageBed -d -split -ibam stdin | awk '{if(\$2>=$plot_strt && \$2<=$plot_end) print \$0}' |" or die "Cant write rnaseq file";
 
-open ABSRNA , "samtools view $bam_file_rnaseq '$gene_name:$plot_strt-$plot_end' | awk '{if(\$4>=$plot_strt && \$4<=$plot_end) print \$0}' |";
+open ABSRNA , "samtools view $bam_file_rnaseq '$gene_name:$plot_strt_mod-$plot_end_mod' | awk '{if(\$4>=$plot_strt_mod && \$4<=$plot_end_mod) print \$0}' |";
 }
-my ($profile, $frame_plot);
-my %unique_orientation ;
-my %unique_orientationrna;
-my @read_len1=split/,/,$readlen1;
-my @off_set1=split/,/,$offset1;
 
 
 while(<PLOTCOD>)
@@ -104,7 +109,7 @@ while(<PLOTCOD>)
 
 
 	$unique_orientation{$array[3]}=$array[1];
-	      if (defined $pos)
+	      if (defined $pos && $pos>=$plot_strt && $pos<=$plot_end)
         {
         $type{$pos}++;
         }
@@ -112,8 +117,6 @@ while(<PLOTCOD>)
 }
 
 my $new_filled_hash = fill_hash(\%type,5);
-my @read_len2=split/,/,$readlen2;
-my @off_set2=split/,/,$offset2;	
 
 
 while(<ABSRNA>)
@@ -132,7 +135,7 @@ while(<ABSRNA>)
                 if ($off_set2[$i]<0 && $array[1] eq 16 && $read_len2[$i]==length($array[9])){$pos2=($array[3]-$off_set2[$i]);}                                                                    
                 }   
         $unique_orientationrna{$array[3]}=$array[1];
-         if (defined $pos2)                                                                                                                                                                      
+         if (defined $pos2 && $pos2>=$plot_strt && $pos2<=$plot_end)                                                                                                                                                                      
         {                                                                                                                                                                                     
         $typerna{$pos2}++;                                                                                                                                                                      
         } 
