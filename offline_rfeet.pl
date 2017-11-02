@@ -108,7 +108,7 @@ while(<PLOTCOD>)
                 }
 
 
-	$unique_orientation{$array[3]}=$array[1];
+	$unique_orientation{$pos}=$array[1];
 	      if (defined $pos && $pos>=$plot_strt && $pos<=$plot_end)
         {
         $type{$pos}++;
@@ -134,7 +134,7 @@ while(<ABSRNA>)
                 if ($off_set2[$i]<0 && $array[1] eq 0 && $read_len2[$i]==length($array[9])){($pos2=($array[3]+length($array[9])-1)+$off_set2[$i]);}                                       
                 if ($off_set2[$i]<0 && $array[1] eq 16 && $read_len2[$i]==length($array[9])){$pos2=($array[3]-$off_set2[$i]);}                                                                    
                 }   
-        $unique_orientationrna{$array[3]}=$array[1];
+        $unique_orientationrna{$pos2}=$array[1];
          if (defined $pos2 && $pos2>=$plot_strt && $pos2<=$plot_end)                                                                                                                                                                      
         {                                                                                                                                                                                     
         $typerna{$pos2}++;                                                                                                                                                                      
