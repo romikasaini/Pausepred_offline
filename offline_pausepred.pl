@@ -46,7 +46,7 @@ my $pos;
    if ($off_set[$i] >=0 && $array[1] eq 0 && $read_len[$i]==length($array[9]))     {$pos=($array[3]+$off_set[$i]);}  ##5' offset for forward strand
                 if ($off_set[$i] >=0 && $array[1] eq 16 && $read_len[$i]==length($array[9])){$pos=(($array[3]+length($array[9])-1)-$off_set[$i]);} ##5'offset for reverse strand
                 if ($off_set[$i]<0 && $array[1] eq 0 && $read_len[$i]==length($array[9])) {$pos=(($array[3]+length($array[9])-1)+$off_set[$i]);} ##3'offset for forward strand
-                if ($off_set[$i] >=0 && $array[1] eq 16 && $read_len[$i]==length($array[9])){$pos=($array[3]-$off_set[$i]);} ##3' offset for reverse strand
+                if ($off_set[$i]<0 && $array[1] eq 16 && $read_len[$i]==length($array[9])){$pos=($array[3]-$off_set[$i]);} ##3' offset for reverse strand
                                 }	
 		if($seq_id ne $array[2])
 			{			## if New gene or chromosome is found
