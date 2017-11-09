@@ -136,6 +136,12 @@ if(scalar @sorted >=300)
 {
 $window=300;
 }
+if(scalar @sorted ==0)
+{
+print "No pauses predicted for these parameters. Please change parameters and try again. Thanks.\n";
+exit;
+}
+
 else
 {
 $window=scalar(@sorted)
