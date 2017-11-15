@@ -39,6 +39,14 @@ print "Command used :perl offline_rfeet $bam_file\t$fasta_file\t$gene_list\t$bam
 print "Output files will be created shortly...\n";
 foreach my $gene_name(@gene_list_array)
 {
+my %unique_orientation ;
+my %unique_orientationrna;
+my @read_len1=split/,/,$readlen1;
+my @off_set1=split/,/,$offset1;
+my @read_len2=split/,/,$readlen2;
+my @off_set2=split/,/,$offset2;
+my $max_offset = max( @off_set1,@off_set2);
+my ($plot_strt_mod,$plot_end_mod);
 
 if($gene_name=~/chr/)
 {
@@ -47,6 +55,8 @@ $gene_name=$array[0];
 $plot_strt=$array[1];
 $plot_end=$array[2];
 $frame_loop=5;
+$plot_strt_mod=$plot_strt-$max_offset;
+$plot_end_mod=$plot_end+$max_offset;
 }
 
 my %type;
@@ -67,17 +77,9 @@ if($gene_name!~/chr/)
 $plot_strt=1;
 $plot_end=$length;
 $frame_loop=2;
+$plot_strt_mod=$plot_strt;
+$plot_end_mod=$plot_end;
 }
-
-my %unique_orientation ;
-my %unique_orientationrna;
-my @read_len1=split/,/,$readlen1;
-my @off_set1=split/,/,$offset1;
-my @read_len2=split/,/,$readlen2;
-my @off_set2=split/,/,$offset2;
-my $max_offset = max( @off_set1,@off_set2);
-my $plot_strt_mod=$plot_strt-$max_offset;
-my $plot_end_mod=$plot_end+$max_offset;
 
 
 system ("samtools index $bam_file");
