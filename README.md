@@ -71,3 +71,5 @@ and then modules can be installed by running following commands.
 >install List::Util
 
 >install Statistics::R
+
+if there is a problem with module installation using above commands, please use force installation (for e.g. "force install Bio::DB::Fasta").
