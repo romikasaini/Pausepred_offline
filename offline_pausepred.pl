@@ -215,7 +215,7 @@ foreach my $key (keys %uniq_zscore_values){#print "@{$uniq_zscore_values{$key}}-
 						#my $full_len_seq=$db->seq(@{$uniq_zscore_values{$key}}->[0]);
 						my ($start,$end);
 						
-							if(@{$uniq_zscore_values{$key}}->[0] eq $array[0])
+							if($uniq_zscore_values{$key}[0] eq $array[0])
 							{
 							$start=$array[1];$end=$array[2];
 							#print "@{$uniq_zscore_values{$key}}->[0]\t$array[0]\n";
@@ -224,7 +224,7 @@ foreach my $key (keys %uniq_zscore_values){#print "@{$uniq_zscore_values{$key}}-
 								my $codonstrt=$i; 
 								my $codonend=$i+2;
 								#print "$codonstrt\t$codonend\n";
-									if(@{$uniq_zscore_values{$key}}->[1]>=$codonstrt && @{$uniq_zscore_values{$key}}->[1]<=$codonend)
+									if($uniq_zscore_values{$key}[1]>=$codonstrt && $uniq_zscore_values{$key}[1]<=$codonend)
 									{
 									my $seq = $db->seq($array[0],$codonstrt, $codonend);
 									print ANNO join(',',@{$uniq_zscore_values{$key}}),",",$seq,"\n";
