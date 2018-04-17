@@ -198,7 +198,9 @@ print "Output has been written to file $outfile\n";
 ####Annotation_file
 if ($annotation)
 {
-open (ANNO, ">$bam_file-$job_id-With-annotation.csv") or die "cannot write";
+print "Please enter codon level output file name\n";
+chomp (my $outfile_codon=<STDIN>);
+open (ANNO, ">$outfile_codon") or die "cannot write";
 my %annotation;
 open(F3,"<$annotation") or die "cannt open annotation file not found";
 while(<F3>)
