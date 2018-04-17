@@ -12,6 +12,7 @@ my $cov=$ARGV[5];
 my $US_seq= $ARGV[6];
 my $DS_seq= $ARGV[7];
 my $offset= $ARGV[8];
+my $annotation=$ARGV[9];
 print "Please enter output file name\n";
 chomp (my $outfile=<STDIN>);
 my $db = Bio::DB::Fasta->new($fasta_file);
@@ -94,7 +95,9 @@ my $coverage=(scalar(@occu)/$window)*100;
 	foreach (sort keys %{$type->{$seq_id}})
 	{	
 		my $seq_down = $db->seq($seq_id, $_ => $_+$DS_seq);
-		my $seq_up = $db->seq($seq_id, $_-$US_seq => $_ -1);
+		my $seq_up;
+		if($_>1){$seq_up = $db->seq($seq_id, $_-$US_seq => $_ -1);}
+		else{$seq_up="NA";}
 		my $pause_score=$type->{$seq_id}->{$_}/$average;
 		if ($type->{$seq_id}->{$_} >= $average*$foldchange && $coverage>=$cov)
 		{		
@@ -191,3 +194,42 @@ print FH join(',',@{$uniq_zscore_values{$_}}),"\n";
 }
 }
 print "Output has been written to file $outfile\n";
+
+####Annotation_file
+if ($annotation)
+{
+open (ANNO, ">$bam_file-$job_id-With-annotation.csv") or die "cannot write";
+my %annotation;
+open(F3,"<$annotation") or die "cannt open annotation file not found";
+while(<F3>)
+{
+my @array=split/\s+/,$_;
+$annotation{$array[0]}=[$array[1],$array[2]];
+print "@array\n";
+#my @anno_keys=keys %annotation;
+#my @anno_values=values %annotation;
+foreach my $key (keys %uniq_zscore_values){#print "@{$uniq_zscore_values{$key}}->[0]\t$array[0]\n";
+						print "foreach:@{$uniq_zscore_values{$key}}->[0]\n";
+						#my $full_len_seq=$db->seq(@{$uniq_zscore_values{$key}}->[0]);
+						my ($start,$end);
+						
+							if(@{$uniq_zscore_values{$key}}->[0] eq $array[0])
+							{
+							$start=$array[1];$end=$array[2];
+							#print "@{$uniq_zscore_values{$key}}->[0]\t$array[0]\n";
+								for(my $i=$start;$i<=$end;$i+=3)
+								{
+								my $codonstrt=$i; 
+								my $codonend=$i+2;
+								#print "$codonstrt\t$codonend\n";
+									if(@{$uniq_zscore_values{$key}}->[1]>=$codonstrt && @{$uniq_zscore_values{$key}}->[1]<=$codonend)
+									{
+									my $seq = $db->seq($array[0],$codonstrt, $codonend);
+									print ANNO "@{$uniq_zscore_values{$key}}\t>$array[0]\_pause_location-@{$uniq_zscore_values{$key}}->[1]\_$codonstrt\_$codonend\t$seq\n";
+									}
+								}
+							}
+					}
+}
+print Dumper \%annotation;
+}
