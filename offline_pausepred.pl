@@ -207,7 +207,7 @@ while(<F3>)
 {
 my @array=split/\s+/,$_;
 $annotation{$array[0]}=[$array[1],$array[2]];
-print "@array\n";
+#print "@array\n";
 #my @anno_keys=keys %annotation;
 #my @anno_values=values %annotation;
 foreach my $key (keys %uniq_zscore_values){#print "@{$uniq_zscore_values{$key}}->[0]\t$array[0]\n";
