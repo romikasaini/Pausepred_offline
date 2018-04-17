@@ -211,7 +211,7 @@ print "@array\n";
 #my @anno_keys=keys %annotation;
 #my @anno_values=values %annotation;
 foreach my $key (keys %uniq_zscore_values){#print "@{$uniq_zscore_values{$key}}->[0]\t$array[0]\n";
-						print "foreach:@{$uniq_zscore_values{$key}}->[0]\n";
+						#print "foreach:@{$uniq_zscore_values{$key}}->[0]\n";
 						#my $full_len_seq=$db->seq(@{$uniq_zscore_values{$key}}->[0]);
 						my ($start,$end);
 						
@@ -227,7 +227,7 @@ foreach my $key (keys %uniq_zscore_values){#print "@{$uniq_zscore_values{$key}}-
 									if(@{$uniq_zscore_values{$key}}->[1]>=$codonstrt && @{$uniq_zscore_values{$key}}->[1]<=$codonend)
 									{
 									my $seq = $db->seq($array[0],$codonstrt, $codonend);
-									print ANNO "@{$uniq_zscore_values{$key}}\t>$array[0]\_pause_location-@{$uniq_zscore_values{$key}}->[1]\_$codonstrt\_$codonend\t$seq\n";
+									print ANNO join(',',@{$uniq_zscore_values{$key}}),",",$seq,"\n";
 									}
 								}
 							}
