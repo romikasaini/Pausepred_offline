@@ -1,0 +1,8 @@
+##This file provides the required format of the annotation file. The annotation file should be one-based.
+##gene_name	start_cordinate(start_codon)	end_coordinate(stop_codon)
+gene1	151	750
+gene2	31	930
+gene3	97	1297
+gene4	255	1155
+gene5	112	712
+chr	3347	4347
