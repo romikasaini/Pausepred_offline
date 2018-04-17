@@ -8,11 +8,11 @@ BAM_file, window_size, foldchange for pause, reference fasta file, comma separat
 Inputs should be mentioned in the order given above, delimited by space.
 
 ## Example Command:
->perl offline_pausepred.pl example1_sorted.bam 1000 10 example_sequence.fa 28,29,30,31 10 50 50 12,12,12,12
+>perl offline_pausepred.pl example1_sorted.bam 1000 20 example_sequence.fa 28,29,30 10 50 50 0,0,0
 
 or if there is an annotation file available
 
->perl offline_pausepred.pl example1_sorted.bam 1000 10 example_sequence.fa 28,29,30,31 10 50 50 12,12,12,12 example_annotation.txt
+>perl offline_pausepred.pl example1_sorted.bam 1000 20 example_sequence.fa 28,29,30 10 50 50 0,0,0 example_annotation.txt
 
 Note: Please enter equal number of comma separated read lengths and offset values
 
