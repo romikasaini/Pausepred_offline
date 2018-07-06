@@ -11,7 +11,7 @@ Inputs should be mentioned in the order given above, delimited by space.
 ##Genome alignment example:
 >perl offline_pausepred.pl example1-genome.bam 1000 20 example-genome.fa 28,29,30 10 50 50 0,0,0
 
-###Transcriptome alignment example:
+##Transcriptome alignment example:
 >perl offline_pausepred.pl example-transcriptome.bam 1000 20 example-transcriptome.fa 28,29,30 10 50 50 0,0,0
 
 or if there is an annotation file available for transcriptome alignments:
@@ -49,10 +49,10 @@ first_bam_file, Fasta sequence, file, gene/transscript/chr:strt-end, comma_separ
 Inputs should be provided in the order mentioned above, delimited by space. Additional inputs such as legend names, plot type etc. will be requested through the console once the script is initiated.
 
 ## Example command:
-###Genome alignment example
+##Genome alignment example
 >perl offline_rfeet.pl example1-genome.bam example-genome.fa chr:3347-4347 15,15,15,15 28,29,30,31
 
-###Transcriptome alignment example
+##Transcriptome alignment example
 >perl offline_rfeet.pl example-transcriptome.bam example-transcriptome.fa yaaA 15,15,15,15 28,29,30,31
 
 note: Second file is optional and multiple genes/chromosome locations can ploted at a time using a comma separated input as shown in the example given below.
