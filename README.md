@@ -8,11 +8,15 @@ BAM_file, window_size, foldchange for pause, reference fasta file, comma separat
 Inputs should be mentioned in the order given above, delimited by space.
 
 ## Example Command:
->perl offline_pausepred.pl example1_sorted.bam 1000 20 example_sequence.fa 28,29,30 10 50 50 0,0,0
+###Genome alignment example:
+>perl offline_pausepred.pl example1-genome.bam 1000 20 example-genome.fa 28,29,30 10 50 50 0,0,0
 
-or if there is an annotation file available
+###Transcriptome alignment example:
+>perl offline_pausepred.pl example-transcriptome.bam 1000 20 example-transcriptome.fa 28,29,30 10 50 50 0,0,0
 
->perl offline_pausepred.pl example1_sorted.bam 1000 20 example_sequence.fa 28,29,30 10 50 50 0,0,0 example_annotation.txt
+or if there is an annotation file available for transcriptome alignments:
+
+>perl offline_pausepred.pl example-transcriptome.bam 1000 20 example-transcriptome.fa 28,29,30 10 50 50 0,0,0 example_annotation.txt
 
 Note: Please enter equal number of comma separated read lengths and offset values
 
@@ -45,10 +49,14 @@ first_bam_file, Fasta sequence, file, gene/transscript/chr:strt-end, comma_separ
 Inputs should be provided in the order mentioned above, delimited by space. Additional inputs such as legend names, plot type etc. will be requested through the console once the script is initiated.
 
 ## Example command:
->perl offline_rfeet.pl example1_sorted.bam example_sequence.fa chr:3347-4347 15,15,15,15 28,29,30,31
+###Genome alignment example
+>perl offline_rfeet.pl example1-genome.bam example-genome.fa chr:3347-4347 15,15,15,15 28,29,30,31
+
+###Transcriptome alignment example
+perl offline_rfeet.pl example-transcriptome.bam example-transcriptome.fa yaaA 15,15,15,15 28,29,30,31
 
 note: Second file is optional and multiple genes/chromosome locations can ploted at a time using a comma separated input as shown in the example given below.
->perl offline_rfeet.pl example1_sorted.bam example_sequence.fa chr:3347-4347,chr:2347-3346,chr:4348-5346 15,15,15,15 28,29,30,31 example2_sorted.bam 15,15,15,15 28,29,30,31
+>perl offline_rfeet.pl example1-genome.bam example-genome.fa chr:3347-4347,chr:2347-3346,chr:4348-5346 15,15,15,15 28,29,30,31 example2-genome.bam 15,15,15,15 28,29,30,31
 
 ## Modules/Packages required to run standalone version:
 1. SAMtools(Follow this link to install http://www.htslib.org/download/)
