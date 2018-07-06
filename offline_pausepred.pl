@@ -202,6 +202,7 @@ print "Please enter codon level output file name\n";
 chomp (my $outfile_codon=<STDIN>);
 open (ANNO, ">$outfile_codon") or die "cannot write";
 my %annotation;
+print ANNO "##gene_name,coordinate_position,number_of_reads_mapped,Pause_score,coverage(%),50_upstream_seq,50_downstream_seq(including_pause_position),Z-score,pause_codon\n";
 open(F3,"<$annotation") or die "cannt open annotation file not found";
 while(<F3>)
 {
