@@ -89,4 +89,4 @@ and then modules can be installed by running following commands.
 Note: If there is a problem with module installation using above commands, please use force installation (for e.g. "force install Bio::DB::Fasta").
 
 ## Citation
-If you use this tool, please cite: Kumari et al (2018) RNA (http://rnajournal.cshlp.org/content/early/2018/07/26/rna.065235.117.long)
+If you use this tool, please cite: Kumari et al (2018) RNA (https://rnajournal.cshlp.org/content/24/10/1297.long)
