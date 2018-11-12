@@ -7,6 +7,8 @@ BAM_file, window_size, foldchange for pause, reference fasta file, comma separat
 
 Inputs should be mentioned in the order given above, delimited by space.
 
+Note: The 5' offset should be specified in positive numbers whereas 3' offset should be specified in negative numbers.
+
 ## Example Command:
 ##Genome alignment example:
 >perl offline_pausepred.pl example1-genome.bam 1000 20 example-genome.fa 28,29,30 10 50 50 0,0,0
