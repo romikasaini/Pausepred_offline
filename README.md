@@ -90,3 +90,8 @@ Note: If there is a problem with module installation using above commands, pleas
 
 ## Citation
 If you use this tool, please cite: Kumari et al (2018) RNA (https://rnajournal.cshlp.org/content/24/10/1297.long)
+
+## Contact
+If you have any difficulty in using Pausrepred, please contact following email address:
+pausepred@gmail.com
+
