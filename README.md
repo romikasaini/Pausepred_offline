@@ -1,5 +1,5 @@
 ## 1. Pausepred
-PausePred predicts ribosomal pause sites using mapped Ribo-seq data (in sorted BAM format). It can be used as a web application (http://pausepred.ucc.ie) or as a stand-alone tool (github: https://github.com/romikasaini/Pausepred_offline). The PausePred tool is written using Perl scripting language (Perl 5, version 18, subversion 2 (v5.18.2)).
+PausePred predicts ribosomal pause sites using mapped Ribo-seq data (in sorted BAM format). It can be used as a web application (https://pausepred.ucc.ie) or as a stand-alone tool (github: https://github.com/romikasaini/Pausepred_offline). The PausePred tool is written using Perl scripting language (Perl 5, version 18, subversion 2 (v5.18.2)).
 
 ## Inputs required to run the stand-alone version:
 
