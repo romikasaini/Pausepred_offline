@@ -36,7 +36,7 @@ Please follow the instructions given at the bottom of this document ("Perl modul
 
 
 ## 2. Rfeet
-Rfeet generates a graphical view of the ribosome footprint density across a gene/chromosome length. It can be used as a web application (http://pausepred.ucc.ie/rfeet2.html) or as a standalone tool (github: https://github.com/romikasaini/Pausepred_offline).
+Rfeet generates a graphical view of the ribosome footprint density across a gene/chromosome length. It can be used as a web application (https://pausepred.ucc.ie/rfeet2.html) or as a standalone tool (github: https://github.com/romikasaini/Pausepred_offline).
 Rfeet is written using Perl scripting language(Perl 5, version 18, subversion 2 (v5.18.2 )) and R programming language.
 
 ## Inputs required to run the stand-alone version:
